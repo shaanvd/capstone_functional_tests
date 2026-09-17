@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Playwright;
+using Serilog;
 
-namespace Capstone_Project.Pages
+namespace CapstoneProject.Pages
 {
-    internal class BasePage
+    public abstract class BasePage
     {
+        protected readonly IPage _page;
+
+        protected BasePage(IPage page)
+        {
+            _page = page;
+        }
+
+        public async Task NavigateToUrlAsync(string url)
+        {
+            Log.Information($"Navigating to: {url}");
+            await _page.GotoAsync(url);
+        }
     }
 }

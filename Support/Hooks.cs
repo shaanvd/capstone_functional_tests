@@ -1,50 +1,57 @@
-﻿using Reqnroll;
+﻿using Microsoft.Playwright;
+using Reqnroll;
+using Reqnroll.BoDi;
 using Serilog;
-using CapstoneProject.Drivers;
 
 namespace CapstoneProject.Support
 {
     [Binding]
     public class Hooks
     {
-        private readonly ScenarioContext _scenarioContext;
-        private IAutomationContext _driver;
+        private readonly IObjectContainer _container;
+        private IPlaywright _playwright;
+        private IBrowser _browser;
+        private IBrowserContext _context;
+        private IPage _page;
 
-        public Hooks(ScenarioContext scenarioContext)
+        // Reqnroll injects its container here so we can store the Playwright page
+        public Hooks(IObjectContainer container)
         {
-            _scenarioContext = scenarioContext;
-        }
-
-        [BeforeTestRun]
-        public static void BeforeTestRun()
-        {
-            Logger.Initialize();
-            Log.Information("=== Starting Test Execution Suite ===");
+            _container = container;
         }
 
         [BeforeScenario]
         public async Task BeforeScenario()
         {
-            if (_scenarioContext.ScenarioInfo.Tags.Contains("Selenium"))
-            {
-                Log.Information("Initializing Selenium Driver Context");
-                // _driver = new SeleniumContext();
-            }
-            else
-            {
-                Log.Information("Initializing Playwright Driver Context");
-                // _driver = new PlaywrightContext();
-            }
+            Log.Information("Starting Playwright Browser...");
 
-            // await _driver.InitializeAsync();
-            // _scenarioContext.Set<IAutomationContext>(_driver);
+            _playwright = await Playwright.CreateAsync();
+
+            _browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            {
+                Headless = false
+            });
+
+            // Automatically grant location permissions to bypass the popup
+            _context = await _browser.NewContextAsync(new BrowserNewContextOptions
+            {
+                Permissions = new[] { "geolocation" }
+            });
+
+            _page = await _context.NewPageAsync();
+
+            _container.RegisterInstanceAs<IPage>(_page);
         }
 
         [AfterScenario]
         public async Task AfterScenario()
         {
-            // if (_driver != null) await _driver.CloseAsync();
-            Log.Information($"Finished Scenario: {_scenarioContext.ScenarioInfo.Title}");
+            Log.Information("Closing Playwright Browser...");
+            if (_browser != null)
+            {
+                await _browser.CloseAsync();
+            }
+            _playwright?.Dispose();
         }
     }
 }

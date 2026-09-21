@@ -14,10 +14,15 @@ namespace CapstoneProject.Support
         private IBrowserContext _context;
         private IPage _page;
 
-        // Reqnroll injects its container here so we can store the Playwright page
         public Hooks(IObjectContainer container)
         {
             _container = container;
+        }
+
+        [BeforeTestRun]
+        public static void BeforeTestRun()
+        {
+            Logger.Initialize();
         }
 
         [BeforeScenario]
@@ -32,7 +37,6 @@ namespace CapstoneProject.Support
                 Headless = false
             });
 
-            // Automatically grant location permissions to bypass the popup
             _context = await _browser.NewContextAsync(new BrowserNewContextOptions
             {
                 Permissions = new[] { "geolocation" }
@@ -52,6 +56,12 @@ namespace CapstoneProject.Support
                 await _browser.CloseAsync();
             }
             _playwright?.Dispose();
+        }
+
+        [AfterTestRun]
+        public static void AfterTestRun()
+        {
+            Log.CloseAndFlush();
         }
     }
 }

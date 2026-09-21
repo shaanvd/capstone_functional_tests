@@ -7,6 +7,7 @@ namespace CapstoneProject.Support
         public static void Initialize()
         {
             Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
                 .WriteTo.File("Logs/Execution-.log", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
         }

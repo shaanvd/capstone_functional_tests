@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Serilog;
 using CapstoneProject.Pages;
-using Microsoft.Playwright; // Added Playwright namespace
+using Microsoft.Playwright; 
 
 namespace CapstoneProject.StepDefinitions
 {
@@ -12,7 +12,6 @@ namespace CapstoneProject.StepDefinitions
         private readonly PractoHomePage _practoHomePage;
         private List<string> _extractedHospitals;
 
-        // Reqnroll now injects the native IPage configured in your Hooks
         public HospitalSearchSteps(IPage page)
         {
             _practoHomePage = new PractoHomePage(page);
@@ -40,7 +39,6 @@ namespace CapstoneProject.StepDefinitions
         [When(@"the user applies the filter for ""(.*)""")]
         public async Task WhenTheUserAppliesTheFilterFor(string filterTag)
         {
-            // This will now just log the warning and move on without crashing
             await _practoHomePage.ApplyFilterAsync(filterTag);
         }
 
@@ -48,8 +46,6 @@ namespace CapstoneProject.StepDefinitions
         public async Task ThenTheUserExtractsHospitalsWithARatingGreaterThan(string rating)
         {
             _extractedHospitals = await _practoHomePage.GetHospitalNamesAsync();
-
-            // NUnit Assertion to ensure data was actually captured
             Assert.That(_extractedHospitals, Is.Not.Empty, "No hospitals were found matching the criteria.");
         }
 
@@ -59,8 +55,8 @@ namespace CapstoneProject.StepDefinitions
             Log.Information($"--- Found {_extractedHospitals.Count} Hospitals ---");
             foreach (var hospital in _extractedHospitals)
             {
-                Log.Information(hospital); // Saves to your Serilog text file
-                Console.WriteLine(hospital); // Prints to the live test console
+                Log.Information(hospital); 
+                Console.WriteLine(hospital); 
             }
         }
     }

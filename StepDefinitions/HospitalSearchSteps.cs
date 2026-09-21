@@ -2,18 +2,20 @@
 using NUnit.Framework;
 using Serilog;
 using CapstoneProject.Pages;
-using Microsoft.Playwright; 
+using Microsoft.Playwright;
 
 namespace CapstoneProject.StepDefinitions
 {
     [Binding]
     public class HospitalSearchSteps
     {
+        private readonly IPage _page; 
         private readonly PractoHomePage _practoHomePage;
         private List<string> _extractedHospitals;
 
         public HospitalSearchSteps(IPage page)
         {
+            _page = page; 
             _practoHomePage = new PractoHomePage(page);
             _extractedHospitals = new List<string>();
         }
@@ -21,7 +23,9 @@ namespace CapstoneProject.StepDefinitions
         [Given(@"the user navigates to ""(.*)""")]
         public async Task GivenTheUserNavigatesTo(string url)
         {
-            await _practoHomePage.NavigateToUrlAsync(url);
+            Log.Information($"Navigating to: {url}");
+            await _page.GotoAsync(url);
+            await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
         }
 
         [When(@"the user selects location as ""(.*)""")]
@@ -56,7 +60,6 @@ namespace CapstoneProject.StepDefinitions
             foreach (var hospital in _extractedHospitals)
             {
                 Log.Information(hospital); 
-                Console.WriteLine(hospital); 
             }
         }
     }

@@ -28,7 +28,7 @@ namespace CapstoneProject.Support
         [BeforeScenario]
         public async Task BeforeScenario()
         {
-            Log.Information("Starting Playwright Browser...");
+            Log.Information("--- Starting New Scenario ---");
 
             _playwright = await Playwright.CreateAsync();
 
@@ -44,6 +44,20 @@ namespace CapstoneProject.Support
 
             _page = await _context.NewPageAsync();
 
+            // --- THE GLOBAL POPUP KILLER ---
+            // Injects a script that checks for the Consent button every 1 second and clicks it if found.
+            // This survives page navigations and runs entirely in the browser background!
+            await _context.AddInitScriptAsync(@"
+        setInterval(() => {
+            const buttons = document.querySelectorAll('.fc-consent-root button, p.fc-button-label');
+            for (const btn of buttons) {
+                if (btn.innerText.includes('Consent') || btn.innerText.includes('Accept')) {
+                    btn.click();
+                }
+            }
+        }, 1000); 
+    ");
+            _page = await _context.NewPageAsync();
             _container.RegisterInstanceAs<IPage>(_page);
         }
 

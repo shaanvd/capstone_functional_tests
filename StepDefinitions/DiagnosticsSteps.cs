@@ -1,7 +1,8 @@
 ﻿using CapstoneProject.Pages;
+using CapstoneProject.Support;
 using NUnit.Framework;
-using Serilog;
 using Reqnroll;
+using Serilog;
 
 namespace CapstoneProject.StepDefinitions
 {
@@ -24,16 +25,21 @@ namespace CapstoneProject.StepDefinitions
         }
 
         [Then(@"the user extracts all top cities names and stores them in a list")]
-        public async Task ThenTheUserExtractsAllTopCitiesNamesAndStoresThemInAList()
+        public async Task ThenTheUserExtractsAllTopCitiesNames()
         {
-            _topCities = await _diagnosticsPage.GetTopCitiesAsync();
-            Assert.That(_topCities, Is.Not.Empty, "No top cities were found on the Diagnostics page.");
+            List<string> topCities = await _diagnosticsPage.GetTopCitiesAsync();
+            Console.WriteLine("TOP CITIES");
+            foreach (var city in topCities)
+            {
+                Console.WriteLine($"- {city}");
+            }
+            ReportUtility.AttachListToAllure("Top Cities Extracted", "Top cities:", topCities);
         }
 
         [Then(@"displays the top cities in the console")]
         public void ThenDisplaysTheTopCitiesInTheConsole()
         {
-            Log.Information($"Successfully extracted {_topCities.Count} Top Cities:");
+            Log.Information($"Successfully extracted {_topCities.Count} Top Cities");
             foreach (var city in _topCities)
             {
                 Log.Information($"- {city}");

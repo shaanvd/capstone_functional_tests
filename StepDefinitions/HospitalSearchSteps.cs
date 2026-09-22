@@ -1,8 +1,9 @@
-﻿using Reqnroll;
-using NUnit.Framework;
-using Serilog;
-using CapstoneProject.Pages;
+﻿using CapstoneProject.Pages;
+using CapstoneProject.Support;
 using Microsoft.Playwright;
+using NUnit.Framework;
+using Reqnroll;
+using Serilog;
 
 namespace CapstoneProject.StepDefinitions
 {
@@ -56,11 +57,15 @@ namespace CapstoneProject.StepDefinitions
         [Then(@"displays the hospital names in the console")]
         public void ThenDisplaysTheHospitalNamesInTheConsole()
         {
-            Log.Information($"Successfully extracted {_extractedHospitals.Count} Hospitals:");
+            Log.Information($"Successfully extracted {_extractedHospitals.Count} Hospitals.");
+            Console.WriteLine($"EXTRACTED HOSPITALS ({_extractedHospitals.Count})");
+
             foreach (var hospital in _extractedHospitals)
             {
-                Log.Information(hospital); 
+                Log.Information(hospital);
+                Console.WriteLine($"- {hospital}");
             }
+            ReportUtility.AttachListToAllure("Filtered Hospitals List", "Hospitals that are 24/7, rated 3.5* or higher and have parking facilities", _extractedHospitals);
         }
     }
 }

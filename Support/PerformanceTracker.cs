@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Capstone_Project.Support
+namespace CapstoneProject.Support
 {
     internal class PerformanceTracker
     {

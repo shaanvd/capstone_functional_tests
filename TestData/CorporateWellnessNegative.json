@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Capstone_Project.TestData
-{
-    class CorporateWellnessNegative
-    {
-    }
+﻿{
+  "Name": "Test User",
+  "Organization": "Demo Corp",
+  "ContactNumber": "email@test",
+  "Email": "029938"
 }

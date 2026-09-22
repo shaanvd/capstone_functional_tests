@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Capstone_Project.TestData
-{
-    class SearchParameters
-    {
-    }
+﻿{
+  "City": "Bangalore",
+  "SearchKeyword": "Hospital",
+  "Filters": [
+    "24*7",
+    "Has Parking"
+  ],
+  "MinRating": "3.5"
 }

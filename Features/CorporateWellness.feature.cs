@@ -136,26 +136,17 @@ namespace Capstone_Project.Features
 #line 6
     await testRunner.WhenAsync("the user navigates to the Corporate Wellness page on Practo", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
-                            "Name",
-                            "Organization",
-                            "ContactNumber",
-                            "Email"});
-                table1.AddRow(new string[] {
-                            "Test User",
-                            "Demo Corp",
-                            "email@test",
-                            "029938"});
 #line 7
-    await testRunner.AndAsync("the user fills the wellness form with invalid details", ((string)(null)), table1, "And ");
+    await testRunner.AndAsync("the user fills the wellness form with invalid details from \"corporatewellnessnega" +
+                        "tive.json\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 10
+#line 8
     await testRunner.ThenAsync("the schedule button should be disabled", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 11
+#line 9
     await testRunner.AndAsync("a warning alert should be displayed", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 12
+#line 10
     await testRunner.AndAsync("the warning message should be captured and logged", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }

@@ -1,22 +1,26 @@
-﻿using CapstoneProject.Pages;
+﻿using CapstoneProject.Models;
+using CapstoneProject.Pages;
 using CapstoneProject.Support;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using Reqnroll;
 using Serilog;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CapstoneProject.StepDefinitions
 {
     [Binding]
     public class HospitalSearchSteps
     {
-        private readonly IPage _page; 
+        private readonly IPage _page;
         private readonly PractoHomePage _practoHomePage;
         private List<string> _extractedHospitals;
 
         public HospitalSearchSteps(IPage page)
         {
-            _page = page; 
+            _page = page;
             _practoHomePage = new PractoHomePage(page);
             _extractedHospitals = new List<string>();
         }
@@ -29,22 +33,19 @@ namespace CapstoneProject.StepDefinitions
             await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
         }
 
-        [When(@"the user selects location as ""(.*)""")]
-        public async Task WhenTheUserSelectsLocationAs(string city)
+        [When(@"the user performs hospital search using parameters from ""(.*)""")]
+        public async Task WhenTheUserPerformsHospitalSearchUsingParametersFrom(string fileName)
         {
-            await _practoHomePage.SelectCityAsync(city);
-        }
+            var searchParams = JsonReader.ReadData<SearchParameters>(fileName);
 
-        [When(@"the user searches for ""(.*)""")]
-        public async Task WhenTheUserSearchesFor(string keyword)
-        {
-            await _practoHomePage.SearchForKeywordAsync(keyword);
-        }
+            await _practoHomePage.SelectCityAsync(searchParams.City);
+            await _practoHomePage.SearchForKeywordAsync(searchParams.SearchKeyword);
 
-        [When(@"the user applies the filter for ""(.*)""")]
-        public async Task WhenTheUserAppliesTheFilterFor(string filterTag)
-        {
-            await _practoHomePage.ApplyFilterAsync(filterTag);
+            foreach (var filter in searchParams.Filters)
+            {
+                Log.Information($"Applying filter: {filter}");
+                await _practoHomePage.ApplyFilterAsync(filter);
+            }
         }
 
         [Then(@"the user extracts hospitals with a rating greater than (.*)")]
@@ -65,7 +66,11 @@ namespace CapstoneProject.StepDefinitions
                 Log.Information(hospital);
                 Console.WriteLine($"- {hospital}");
             }
-            ReportUtility.AttachListToAllure("Filtered Hospitals List", "Hospitals that are 24/7, rated 3.5* or higher and have parking facilities", _extractedHospitals);
+
+            ReportUtility.AttachListToAllure(
+                "Filtered Hospitals List",
+                "Hospitals that are 24/7, rated 3.5* or higher and have parking facilities",
+                _extractedHospitals);
         }
     }
 }

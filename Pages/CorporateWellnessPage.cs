@@ -36,24 +36,20 @@ namespace CapstoneProject.Pages
         {
             Log.Information($"Typing form details letter by letter: {name}, {organization}, {contactNumber}, {email}");
 
-            int typingDelay = 50; // 50ms delay between keystrokes
+            int typingDelay = 50;
 
-            // 1. Name
             var nameInput = _page.Locator("[name='name']:visible, #name:visible").First;
             await nameInput.ClearAsync();
             await nameInput.PressSequentiallyAsync(name, new LocatorPressSequentiallyOptions { Delay = typingDelay });
 
-            // 2. Organization
             var orgInput = _page.Locator("[name='organizationName']:visible, #organizationName:visible").First;
             await orgInput.ClearAsync();
             await orgInput.PressSequentiallyAsync(organization, new LocatorPressSequentiallyOptions { Delay = typingDelay });
 
-            // 3. Contact Number
             var phoneInput = _page.Locator("[name='contactNumber']:visible, #contactNumber:visible").First;
             await phoneInput.ClearAsync();
             await phoneInput.PressSequentiallyAsync(contactNumber, new LocatorPressSequentiallyOptions { Delay = typingDelay });
 
-            // 4. Email
             var emailInput = _page.Locator("[name='officialEmailId']:visible, #officialEmailId:visible").First;
             await emailInput.ClearAsync();
             await emailInput.PressSequentiallyAsync(email, new LocatorPressSequentiallyOptions { Delay = typingDelay });

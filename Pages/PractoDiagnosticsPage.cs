@@ -26,10 +26,6 @@ namespace CapstoneProject.Pages
             Log.Information("Waiting for page layout to stabilize...");
             await Task.Delay(1000);
 
-            //Log.Information("Clicking the location dropdown to reveal Top Cities...");
-            //var dropdownIcon = _page.Locator(".icon-ic_dropdown.c-search__dropdown-icon").First;
-            //await dropdownIcon.ClickAsync();
-
             var cityElements = _page.Locator("div.u-margint--standard.o-f-color--primary");
 
             await cityElements.First.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });

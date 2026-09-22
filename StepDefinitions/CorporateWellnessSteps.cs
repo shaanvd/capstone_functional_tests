@@ -1,5 +1,6 @@
-﻿using CapstoneProject.Support;
+﻿using CapstoneProject.Models;
 using CapstoneProject.Pages;
+using CapstoneProject.Support;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using Reqnroll;
@@ -26,16 +27,19 @@ namespace CapstoneProject.StepDefinitions
             await _corporateWellnessPage.NavigateToCorporateWellnessAsync();
         }
 
-        [When(@"the user fills the wellness form with invalid details")]
-        public async Task WhenTheUserFillsTheWellnessFormWithInvalidDetails(Table table)
+        [When(@"the user fills the wellness form with invalid details from ""(.*)""")]
+        public async Task WhenTheUserFillsTheWellnessFormWithInvalidDetailsFrom(string fileName)
         {
-            var row = table.Rows[0];
-            string name = row["Name"];
-            string organization = row["Organization"];
-            string contactNumber = row["ContactNumber"];
-            string email = row["Email"];
+            // Read the data directly from the JSON file
+            var data = JsonReader.ReadData<CorporateWellnessNegativeData>(fileName);
 
-            await _corporateWellnessPage.FillInvalidDetailsAsync(name, organization, contactNumber, email);
+            // Pass the extracted properties into your Page Object method
+            await _corporateWellnessPage.FillInvalidDetailsAsync(
+                data.Name,
+                data.Organization,
+                data.ContactNumber,
+                data.Email
+            );
         }
 
         [Then(@"the schedule button should be disabled")]

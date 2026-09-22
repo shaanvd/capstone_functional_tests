@@ -56,7 +56,7 @@ namespace CapstoneProject.StepDefinitions
         [Then(@"displays the hospital names in the console")]
         public void ThenDisplaysTheHospitalNamesInTheConsole()
         {
-            Log.Information($"--- Found {_extractedHospitals.Count} Hospitals ---");
+            Log.Information($"Successfully extracted {_extractedHospitals.Count} Hospitals:");
             foreach (var hospital in _extractedHospitals)
             {
                 Log.Information(hospital); 

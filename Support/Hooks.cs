@@ -9,10 +9,10 @@ namespace CapstoneProject.Support
     public class Hooks
     {
         private readonly IObjectContainer _container;
-        private IPlaywright _playwright;
-        private IBrowser _browser;
-        private IBrowserContext _context;
-        private IPage _page;
+        private IPlaywright ?_playwright;
+        private IBrowser ?_browser;
+        private IBrowserContext ?_context;
+        private IPage ?_page;
 
         public Hooks(IObjectContainer container)
         {
@@ -44,16 +44,18 @@ namespace CapstoneProject.Support
                 ViewportSize = ViewportSize.NoViewport
             });
 
-            await _context.AddInitScriptAsync(@"
-                setInterval(() => {
+            await _context.AddInitScriptAsync(@" setInterval(() => 
+                {
                     const buttons = document.querySelectorAll('.fc-consent-root button, p.fc-button-label');
-                    for (const btn of buttons) {
-                        if (btn.innerText.includes('Consent') || btn.innerText.includes('Accept')) {
+                    for (const btn of buttons) 
+                    {
+                        if (btn.innerText.includes('Consent') || btn.innerText.includes('Accept')) 
+                        {
                             btn.click();
                         }
                     }
-                }, 1000); 
-            ");
+                },
+            1000); ");
 
             _page = await _context.NewPageAsync();
             _container.RegisterInstanceAs<IPage>(_page);

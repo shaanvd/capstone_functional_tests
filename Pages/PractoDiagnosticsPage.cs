@@ -23,15 +23,14 @@ namespace CapstoneProject.Pages
             Log.Information("Extracting top cities from the Diagnostics page...");
             var citiesList = new List<string>();
 
-            Log.Information("Clicking the location dropdown to reveal Top Cities...");
-            var dropdownIcon = _page.Locator(".icon-ic_dropdown.c-search__dropdown-icon").First;
+            Log.Information("Waiting for page layout to stabilize...");
+            await Task.Delay(1000);
 
-            await dropdownIcon.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+            //Log.Information("Clicking the location dropdown to reveal Top Cities...");
+            //var dropdownIcon = _page.Locator(".icon-ic_dropdown.c-search__dropdown-icon").First;
+            //await dropdownIcon.ClickAsync();
 
-            await dropdownIcon.ClickAsync(new LocatorClickOptions { Force = true });
-
-
-            var cityElements = _page.Locator("div.u-margint--standard.o-f-color--primary:visible");
+            var cityElements = _page.Locator("div.u-margint--standard.o-f-color--primary");
 
             await cityElements.First.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
 

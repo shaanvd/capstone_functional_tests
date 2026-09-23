@@ -2,7 +2,7 @@
 using Serilog;
 using System.Text.RegularExpressions;
 
-namespace CapstoneProject.Pages
+namespace Capstone_Project.Pages
 {
     public class PractoHomePage : BasePage
     {

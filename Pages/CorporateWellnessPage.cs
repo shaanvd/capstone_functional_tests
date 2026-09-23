@@ -1,8 +1,7 @@
 ﻿using Microsoft.Playwright;
 using Serilog;
-using System.Threading.Tasks;
 
-namespace CapstoneProject.Pages
+namespace Capstone_Project.Pages
 {
     public class CorporateWellnessPage
     {

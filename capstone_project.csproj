@@ -23,6 +23,9 @@
 	  <None Update="TestData\**">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
+  <Content Include="TestData\**\*.json">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </Content>
   </ItemGroup>
 
 </Project>

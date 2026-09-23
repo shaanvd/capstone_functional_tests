@@ -1,18 +1,18 @@
 ﻿using Microsoft.Playwright;
-using Reqnroll;
 using Reqnroll.BoDi;
 using Serilog;
+using System; 
 
-namespace CapstoneProject.Support
+namespace Capstone_Project.Support
 {
     [Binding]
     public class Hooks
     {
         private readonly IObjectContainer _container;
-        private IPlaywright ?_playwright;
-        private IBrowser ?_browser;
-        private IBrowserContext ?_context;
-        private IPage ?_page;
+        private IPlaywright? _playwright;
+        private IBrowser? _browser;
+        private IBrowserContext? _context;
+        private IPage? _page;
 
         public Hooks(IObjectContainer container)
         {
@@ -24,7 +24,6 @@ namespace CapstoneProject.Support
         {
             Logger.Initialize();
         }
-
         [BeforeScenario]
         public async Task BeforeScenario()
         {
@@ -32,6 +31,7 @@ namespace CapstoneProject.Support
 
             _playwright = await Playwright.CreateAsync();
 
+            Log.Information("Launching Browser...");
             _browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
                 Headless = false,
@@ -45,22 +45,21 @@ namespace CapstoneProject.Support
             });
 
             await _context.AddInitScriptAsync(@" setInterval(() => 
+        {
+            const buttons = document.querySelectorAll('.fc-consent-root button, p.fc-button-label');
+            for (const btn of buttons) 
+            {
+                if (btn.innerText.includes('Consent') || btn.innerText.includes('Accept')) 
                 {
-                    const buttons = document.querySelectorAll('.fc-consent-root button, p.fc-button-label');
-                    for (const btn of buttons) 
-                    {
-                        if (btn.innerText.includes('Consent') || btn.innerText.includes('Accept')) 
-                        {
-                            btn.click();
-                        }
-                    }
-                },
-            1000); ");
+                    btn.click();
+                }
+            }
+        },
+    1000); ");
 
             _page = await _context.NewPageAsync();
             _container.RegisterInstanceAs<IPage>(_page);
         }
-
         [AfterScenario]
         public async Task AfterScenario()
         {

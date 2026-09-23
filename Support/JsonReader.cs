@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.Json;
 
-namespace CapstoneProject.Support
+namespace Capstone_Project.Support
 {
     public static class JsonReader
     {

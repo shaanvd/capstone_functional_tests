@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace CapstoneProject.Support
+namespace Capstone_Project.Support
 {
     public static class Logger
     {

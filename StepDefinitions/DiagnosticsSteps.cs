@@ -1,10 +1,8 @@
-﻿using CapstoneProject.Pages;
-using CapstoneProject.Support;
-using NUnit.Framework;
-using Reqnroll;
+﻿using Capstone_Project.Pages;
+using Capstone_Project.Support;
 using Serilog;
 
-namespace CapstoneProject.StepDefinitions
+namespace Capstone_Project.StepDefinitions
 {
     [Binding]
     public class DiagnosticsSteps
@@ -33,7 +31,7 @@ namespace CapstoneProject.StepDefinitions
             {
                 Console.WriteLine($"- {city}");
             }
-            ReportUtility.AttachListToAllure("Top Cities Extracted", "Top cities:", topCities);
+            ReportUtility.AttachListToAllure("Top Cities Extracted", "Top cities", topCities);
         }
 
         [Then(@"displays the top cities in the console")]

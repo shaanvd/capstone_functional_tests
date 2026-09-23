@@ -1,15 +1,13 @@
-﻿using CapstoneProject.Models;
-using CapstoneProject.Pages;
-using CapstoneProject.Support;
+﻿using Capstone_Project.Models;
+using Capstone_Project.Pages;
+using Capstone_Project.Support;
 using Microsoft.Playwright;
 using NUnit.Framework;
-using Reqnroll;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace CapstoneProject.StepDefinitions
+
+
+namespace Capstone_Project.StepDefinitions
 {
     [Binding]
     public class HospitalSearchSteps

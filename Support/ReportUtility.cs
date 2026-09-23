@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CapstoneProject.Support
+namespace Capstone_Project.Support
 {
     public static class ReportUtility
     {

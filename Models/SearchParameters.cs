@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CapstoneProject.Models
+﻿namespace Capstone_Project.Models
 {
     public class SearchParameters
     {

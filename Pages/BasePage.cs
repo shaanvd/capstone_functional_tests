@@ -1,7 +1,7 @@
 ﻿using Microsoft.Playwright;
 using Serilog;
 
-namespace CapstoneProject.Pages
+namespace Capstone_Project.Pages
 {
     public abstract class BasePage
     {

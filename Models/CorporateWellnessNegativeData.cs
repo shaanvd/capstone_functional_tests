@@ -1,4 +1,4 @@
-﻿namespace CapstoneProject.Models
+﻿namespace Capstone_Project.Models
 {
     public class CorporateWellnessNegativeData
     {

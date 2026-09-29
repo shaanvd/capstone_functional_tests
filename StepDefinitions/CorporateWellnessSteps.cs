@@ -29,10 +29,8 @@ namespace Capstone_Project.StepDefinitions
         [When(@"the user fills the wellness form with invalid details from ""(.*)""")]
         public async Task WhenTheUserFillsTheWellnessFormWithInvalidDetailsFrom(string fileName)
         {
-            // Read the data directly from the JSON file
             var data = JsonReader.ReadData<CorporateWellnessNegativeData>(fileName);
 
-            // Pass the extracted properties into your Page Object method
             await _corporateWellnessPage.FillInvalidDetailsAsync(
                 data.Name,
                 data.Organization,

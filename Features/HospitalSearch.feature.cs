@@ -134,21 +134,12 @@ namespace Capstone_Project.Features
     await testRunner.GivenAsync("the user navigates to \"https://www.practo.com\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 6
-    await testRunner.WhenAsync("the user selects location as \"Bangalore\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.WhenAsync("the user performs hospital search using parameters from \"searchparameters.json\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 7
-    await testRunner.AndAsync("the user searches for \"Hospital\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 8
-    await testRunner.AndAsync("the user applies the filter for \"24*7\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 9
-    await testRunner.AndAsync("the user applies the filter for \"Has Parking\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 10
     await testRunner.ThenAsync("the user extracts hospitals with a rating greater than 3.5", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 11
+#line 8
     await testRunner.AndAsync("displays the hospital names in the console", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }

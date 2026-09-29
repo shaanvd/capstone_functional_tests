@@ -18,5 +18,5 @@ This repository contains the functional test automation for my Capstone project 
  ┣  StepDefinitions/   # C# step bindings bridging Gherkin to Playwright
  ┣  Pages/             # Page Object Model (POM) classes for UI interactions
  ┣  TestData           # Data files (JSON) for data inputs
- ┣  Reports/           # Generated output (Allure)
- ┗  SecurityConfig.cs  # Environment variables and thresholds
+ ┗  Reports/           # Generated output (Allure)
+  
